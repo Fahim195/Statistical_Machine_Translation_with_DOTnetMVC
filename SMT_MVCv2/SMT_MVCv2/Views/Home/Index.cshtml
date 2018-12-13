@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@{ Layout = null;}
+<html>
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="@Url.Content("~/Style/Style.css")" rel="stylesheet" type="text/css"/>
+
+    <script>
+        $(document).ready(function () {
+            $("#convertBtn").click(function () {
+                clearDestinationText();
+                var sourceLanguage = $("#sourceTextArea").val();
+                var Approach = $(".aaprchopts").val();               
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("Translate", "Home")?sourceLanguage=' + sourceLanguage + '&approach=' + Approach+' ',
+                    success: function (result) {
+                        $("#destinationTextArea").html(result);
+                        alert("Process Successful");
+                    }
+                });
+                
+            });
+            function clearDestinationText() { $("#destinationTextArea").html(" "); }
+        });
+    </script>
+</head>
+<body>
+    <div class="container-fluid banner">
+        <div class="row bannerRow">
+            <div class="col-md-4">
+                <div class="logoContainer">
+                    <div class="logoBack"><h1>S</h1></div>
+                    <div class="logoBack"><h1>M</h1></div>
+                    <div class="logoBack"><h1>T</h1></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h1 class="ProjectTitle">Natural Language Processing</h1>
+                <p><span class="badge">Statistical Machine Translation Approach</span></p>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="container" id="ApproachSelectionArea">
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6 approachOption">
+                                <div class="form-group">
+                                    <select class="form-control pull-roght aaprchopts" >
+                                        <option style="font-weight:bold">Select Approach</option>
+                                        <option>Transfer Approach</option>
+                                        <option disabled>Interlingua Approach</option>
+                                        <option>Direct Approach</option>
+                                        <option>Statistical Translation</option>
+                                        <option disabled>Corpus-based Approach</option>
+                                        <option disabled>Word-For-Word Approach</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                    </div>
+
+    <div class="container jumbotron" style="margin-top:20px">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="label label-primary pull-left">Source:</span>
+                                        <select class="form-control pull-left slct">
+                                            <option>English</option>
+                                            <option disabled>Bangla</option>
+                                        </select>
+                                        <br />
+                                        <textarea class="form-control txtAr source" rows="5" id="sourceTextArea"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="label label-primary pull-left">Destination:</span>
+                                        <select class="form-control pull-left slct">
+                                            <option disabled>English</option>
+                                            <option>Bangla</option>
+                                        </select>
+                                        <br />
+                                        <textarea class="form-control txtAr destination" rows="5" id="destinationTextArea"></textarea>
+                                    </div>
+                                </div>
+
+                            </div> 
+        <br />
+                                <div class="row">
+                                    <div class="col-md-5"></div>
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-primary active" id="convertBtn">PROCESS</button>
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                    <div class="col-md-1"></div>
+                                </div> 
+                            </div> 
+                </body>
+</html>
+ 
